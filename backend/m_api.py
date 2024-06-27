@@ -5,11 +5,11 @@ import threading
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 from player import (
-    Player,
+    p,
     Song,
 )
+import ytube_downloader as ytd
 
-p = Player()
 
 app = FastAPI(
     title="Player API",
@@ -115,9 +115,9 @@ async def post_playlist(new_playlist: List[Song]):
 
 @app.post("/song")
 async def add_song(url: str):
-    path = r"C:\Users\FCU1LO\Desktop\test\Audio.mp3"
-    p.playlist.append(Song(filepath=path, name="Audio",
-                      interpret="Unknown"))
+    if url=="":
+        return
+    ytd.main(url)
     return
 
 

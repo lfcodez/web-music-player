@@ -25,8 +25,8 @@ export default {
     // Your component's logic goes here
     methods: {
         async upload() {
-            this.url = "";
             await post(`/song?url=${this.url}`);
+            this.url = '';
         }
     }
 }

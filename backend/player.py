@@ -112,3 +112,5 @@ class Player():
 
     def set_volume(self, volume):
         pygame.mixer.music.set_volume(volume)
+
+p = Player()
