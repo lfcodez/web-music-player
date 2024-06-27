@@ -20,7 +20,7 @@ def main(url: str, destination=r"songs"):
                 os.rename(out_file, new_file)
                 print("overwritten File!")
             
-            os.system(f"ffmpeg -i {new_file} {new_file.replace('mp3','ogg')}")
+            os.system(f'ffmpeg -i "{new_file}" "{new_file.replace('mp3','ogg')}"')
             os.remove(new_file)
             p.playlist.append(Song(filepath=new_file.replace('mp3','ogg'),name=video.title,interpret="Unknown",playing=False))
             print(video.title + " has been successfully downloaded.")
@@ -40,7 +40,7 @@ def main(url: str, destination=r"songs"):
             os.rename(out_file, new_file)
             print("overwritten File!")
 
-        os.system(f"ffmpeg -i {new_file} {new_file.replace('mp3','ogg')}")
+        os.system(f'ffmpeg -i "{new_file}" "{new_file.replace('mp3','ogg')}"')
         os.remove(new_file)
         p.playlist.append(Song(filepath=new_file.replace('mp3','ogg'),name=yt.title,interpret="Unknown",playing=False))
         print(yt.title + " has been successfully downloaded.")
