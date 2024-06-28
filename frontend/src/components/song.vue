@@ -3,16 +3,16 @@
     <v-container style="width: 70vW;" class="py-1 px-5 mx-0">
         <v-container v-if="isplaying" style="padding: 0px;" class="highlighted-container">
 
-            <p class="text-h5">
-                {{ song.name }}  <v-icon style="position: absolute; right: 15px; opacity: 40%;">mdi-music</v-icon>
-                        </p>
+            <p class="text-h7">
+                {{ song.name }} <v-icon style="position: absolute; right: 15px; opacity: 40%;">mdi-music</v-icon>
+            </p>
             <p class="text-caption">
                 {{ song.interpret }}
             </p>
 
         </v-container>
         <v-container v-if="!isplaying" style="padding: 0px;">
-            <p class="text-h5">
+            <p class="text-h7">
                 {{ song.name }}
             </p>
             <p class="text-caption">
