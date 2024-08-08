@@ -4,13 +4,21 @@
         <v-row justify="center">
             <v-card>
                 <v-card-text style="width: 80vW;">
-                    <h1>Paste Link</h1>
+                    <h1>Link einfügen:</h1>
                     <v-text-field v-model="url" label="URL"></v-text-field>
-                    <v-btn color="" flat @click="upload()">ADD</v-btn>
+                    <v-btn :loading="loading" color="" flat @click="upload()">ADD</v-btn>
                 </v-card-text>
             </v-card>
         </v-row>
     </v-container>
+    <v-snackbar v-model="snackbar" multi-line>
+        Ein Fehler ist aufgetreten.
+        <template v-slot:actions>
+            <v-btn color="red" variant="text" @click="snackbar = false">
+                Close
+            </v-btn>
+        </template>
+    </v-snackbar>
 </template>
 
 <script>
@@ -20,12 +28,22 @@ export default {
     data() {
         return {
             url: '',
+            loading: false,
+            snackbar: false,
         }
     },
     // Your component's logic goes here
     methods: {
         async upload() {
-            await post(`/song?url=${this.url}`);
+            if (this.loading) return;
+            this.loading = true;
+            try {
+                await post(`/song?url=${this.url}`);
+            } catch (e) {
+                console.error(e);
+                this.snackbar = true;
+            }
+            this.loading = false;
             this.url = '';
         }
     }

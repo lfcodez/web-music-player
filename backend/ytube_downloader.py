@@ -2,7 +2,7 @@ import datetime
 from pytube import YouTube, Playlist
 import os
 from player import Song, p
-
+from subprocess import Popen
 
 def main(url: str, destination=r"songs"):
     l_songs = []
@@ -19,8 +19,8 @@ def main(url: str, destination=r"songs"):
                 os.remove(new_file)
                 os.rename(out_file, new_file)
                 print("overwritten File!")
-            
-            os.system(f'ffmpeg -i "{new_file}" "{new_file.replace("mp3","ogg")}"')
+            Popen(["ffmpeg", "-i", new_file, new_file.replace("mp3","ogg")])
+            # os.system(f'ffmpeg -i "{new_file}" "{new_file.replace("mp3","ogg")}"')
             os.remove(new_file)
             p.playlist.append(Song(filepath=new_file.replace('mp3','ogg'),name=video.title,interpret="Unknown",playing=False))
             print(video.title + " has been successfully downloaded.")
@@ -39,8 +39,8 @@ def main(url: str, destination=r"songs"):
             os.remove(new_file)
             os.rename(out_file, new_file)
             print("overwritten File!")
-
-        os.system(f'ffmpeg -i "{new_file}" "{new_file.replace("mp3","ogg")}"')
+        Popen(["ffmpeg", "-i", new_file, new_file.replace("mp3","ogg")])
+        # os.system(f'ffmpeg -i "{new_file}" "{new_file.replace("mp3","ogg")}"')
         os.remove(new_file)
         p.playlist.append(Song(filepath=new_file.replace('mp3','ogg'),name=yt.title,interpret="Unknown",playing=False))
         print(yt.title + " has been successfully downloaded.")
