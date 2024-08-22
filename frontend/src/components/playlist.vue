@@ -4,10 +4,13 @@
             <v-col class="pa-0 ma-0">
 
                 <v-row justify="center" align="start" class="pa-0 ma-0">
-                    <v-list scrollable class="pa-0 ma-0">
-                        <draggable :list="playlist" @change="move" class="pa-0 ma-0">
-                            <Song v-for="(song, index) in playlist" :song="song" class="my-1 pa-0" @click="play(index)"
-                                :isplaying="playlist[index].playing"></Song>
+                    <v-list class="pa-0 ma-0" style="overflow: hidden;">
+                        <draggable :delay=75 :list="playlist" @change="move" class="pa-0 ma-0"
+                            @start="(event) => event.item.classList.add('dragging')"
+                            @end="(event) => event.item.classList.remove('dragging')">
+                            <Song v-for="(song, index) in playlist" :song="song" class="my-1 pa-0"
+                                @click.touch="play(index)" :isplaying="playlist[index].playing">
+                            </Song>
                         </draggable>
                     </v-list>
                 </v-row>
@@ -73,7 +76,6 @@ export default {
         async getPlaylist() {
             this.playlist = await get("/playlist")
             this.playingSong = this.playlist.find(item => item?.playing == true)
-
         },
         async move() {
             await post("/playlist", this.playlist)
@@ -131,4 +133,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.dragging {
+    background-color: rgba(248, 248, 255, 0.133);
+    
+}
+</style>

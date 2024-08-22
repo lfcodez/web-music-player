@@ -114,10 +114,13 @@ async def post_playlist(new_playlist: List[Song]):
 
 
 @app.post("/song")
-async def add_song(url: str):
-    if url=="":
+async def add_song(url: str, background_tasks: BackgroundTasks):
+    if url == "":
         return
-    ytd.main(url)
+    await ytd.main(url)
+    # asyncio.create_task(ytd.main(url))
+    # background_tasks.add_task(ytd.main, url)
+    # threading.Thread(target=ytd.main, args=(url,)).start()
     return
 
 
@@ -150,6 +153,12 @@ async def get_volume():
 @app.post("/volume")
 async def set_volume(volume: float):
     p.set_volume(volume)
+
+
+@app.get("/shuffle")
+async def shuffle():
+    p.shuffle()
+
 
 if __name__ == "__main__":
     try:

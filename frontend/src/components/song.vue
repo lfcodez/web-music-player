@@ -1,6 +1,6 @@
 <template>
 
-    <v-container style="width: 70vW;" class="py-1 px-5 mx-0">
+    <v-container  class="py-1 px-5 mx-0" >
         <v-container v-if="isplaying" style="padding: 0px;" class="highlighted-container">
 
             <p class="text-h7">
@@ -12,12 +12,17 @@
 
         </v-container>
         <v-container v-if="!isplaying" style="padding: 0px;">
-            <p class="text-h7">
-                {{ song.name }}
-            </p>
-            <p class="text-caption">
-                {{ song.interpret }}
-            </p>
+            <v-row>
+                <v-col>
+
+                    <p class="text-h7">
+                        {{ song.name }}
+                    </p>
+                    <p class="text-caption">
+                        {{ song.interpret }}
+                    </p>
+                </v-col>
+            </v-row>
         </v-container>
 
     </v-container>
@@ -35,7 +40,7 @@ export default {
         isplaying: {
             type: Boolean,
             required: false
-        }
+        },
     },
     data() {
         return {

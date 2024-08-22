@@ -1,5 +1,6 @@
 import pygame
 from pydantic import BaseModel
+import random
 
 
 class Song(BaseModel):
@@ -112,5 +113,9 @@ class Player():
 
     def set_volume(self, volume):
         pygame.mixer.music.set_volume(volume)
+
+    def shuffle(self):
+        random.shuffle(self.playlist)
+
 
 p = Player()
